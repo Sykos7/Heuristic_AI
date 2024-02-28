@@ -2,19 +2,21 @@ public class Map {
     private char[][] charMap;
     private float[][] costMap;
 
+    /*Initiating MAP to play*/
     public Map(char[][] charMap){
         this.charMap = charMap;
         costMap = generateCostMap();
     }
-    
+    /* Return Map with what place we have in each position*/
     public char[][] getCharMap(){
         return charMap;
     }
-
+    /* Return the map with which cost has each position */
     public float[][] getCostMap(){
         return costMap;
     }
 
+    /*Generate the CostMap with the Map in ASCII*/
     private float[][] generateCostMap(){
         float[][] costMap = new float[charMap.length][charMap[0].length];        
         
@@ -42,6 +44,7 @@ public class Map {
         return costMap;
     }
 
+    // Gets the String of the Map
     public String toString(){
         String text = "";
 

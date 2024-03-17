@@ -11,8 +11,7 @@ public class Heuristics {
 
     //Heuristic distance (Find the shorter path)
     public static float Heuristic1(State currentState, State targetState, float[][] map){
-
-
+        /* obtener siguientes posibles estados obtener un calculo y devolver un valor */
     }
 
     //Heuristic economic (Find the path spending the lower quantity of money)

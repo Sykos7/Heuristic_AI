@@ -12,6 +12,7 @@ public class Main {
       {'A','A','M','C','M','C','P','P','P','P'},
       {'A','A','C','C','M','C','C','C','C','C'},
     };
+
     public static Map OriginalMap = new Map(OriginalCharMap);
 
     public static char[][] CustomCharMap = {
@@ -22,11 +23,11 @@ public class Main {
       {'N','C','N','M','P'},
     };
     public static Map CustomMap = new Map(CustomCharMap);
+    public static Map MapInUse;
 
     public static void main(String args[]){      
-
       // TODO: Declare map
-
+        MapInUse = new Map(CustomCharMap);
       // TODO: Declare initial and target states
 
       // Declare heuristics
@@ -41,6 +42,7 @@ public class Main {
 
       // TODO: Show results
     }
+
 }
 
 

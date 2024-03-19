@@ -13,8 +13,8 @@ public class Heuristics {
 
     //Heuristic distance (Find the shorter path)
     public static float Heuristic1(State currentState, State targetState, float[][] map){
-        float posX, posY, add;
-        float avg, result;
+        float posX, posY;
+        float result;
 
         posX = (float)currentState.getX();
         posY = (float)currentState.getY();

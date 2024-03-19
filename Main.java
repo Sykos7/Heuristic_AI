@@ -1,4 +1,4 @@
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +74,7 @@ public class Main {
         Final6 = search6.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
 
         // TODO: Show results
+        System.out.println("BEST FIRST");
         System.out.println("Euclidean:");
         printStateList(Final1);
         System.out.println("\nManhattan:");
@@ -81,6 +82,7 @@ public class Main {
         System.out.println("\nHybrid between Distance Euclidean & Economy:");
         printStateList(Final3);
         System.out.println("---------------------------------------------------------------------------");
+        System.out.println("A STAR");
         System.out.println("Euclidean:");
         printStateList(Final4);
         System.out.println("\nManhattan:");

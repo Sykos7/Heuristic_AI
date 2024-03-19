@@ -1,3 +1,5 @@
+import Exceptions.PositionNotAllowedException;
+
 public class Map {
     private char[][] charMap;
     private float[][] costMap;
@@ -28,13 +30,13 @@ public class Map {
                     //ponemos coste 0 en la montaña como centinela
                     case 'M': cost= 0;// TODO: Define cost corresponding to "Mountain" ("Muntanya")
                     break;
-                    case 'N': cost= -5;// TODO: Define cost corresponding to "Empty" ("Buit")
+                    case 'N': cost= 5;// TODO: Define cost corresponding to "Empty" ("Buit")
                     break;
-                    case 'A': cost= -5+1;// TODO: Define cost corresponding to "Village" ("Aldea")
+                    case 'A': cost= 5-1;// TODO: Define cost corresponding to "Village" ("Aldea")
                     break;
-                    case 'P': cost= -5+3;// TODO: Define cost corresponding to "Town" ("Poble")
+                    case 'P': cost= 5-3;// TODO: Define cost corresponding to "Town" ("Poble")
                     break;
-                    case 'C': cost= -5+4.5F;// TODO: Define cost corresponding to "City" ("Ciutat/capital")
+                    case 'C': cost= 5-4.5F;// TODO: Define cost corresponding to "City" ("Ciutat/capital")
                     break;
                 }
                 costMap[row][col] = cost;
@@ -43,7 +45,22 @@ public class Map {
 
         return costMap;
     }
+    public int averageCost(float[][] costMap) throws Exception{
+        int X = costMap[0].length;
+        int Y = costMap.length;
+        int average = 0;
 
+        for(int i = 0; i < Y; i++){
+            for(int j = 0; j < X; j++){
+                average += costMap[i][j];
+            }
+        }
+        if(average != 0){
+            return average;
+        }else{
+            throw new Exception();
+        }
+    }
     // Gets the String of the Map
     public String toString(){
         String text = "";
@@ -59,5 +76,11 @@ public class Map {
         text = text.substring(0, text.length()-1);
 
         return text;
+    }
+    public State getInitialState(){
+            return new State(0, 0);
+    }
+    public State getFinalState(){
+            return new State(charMap[0].length-1, charMap.length-1);
     }
 }

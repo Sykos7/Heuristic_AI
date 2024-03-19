@@ -1,3 +1,7 @@
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static char[][] OriginalCharMap = {
@@ -14,20 +18,26 @@ public class Main {
     };
 
     public static Map OriginalMap = new Map(OriginalCharMap);
-
+    public static int AvgCost=0;
+    public static Heuristic UseHeuristic;
     public static char[][] CustomCharMap = {
-      {'N','M','N','N','M'},
-      {'N','A','N','N','N'},
-      {'M','N','C','N','M'},
-      {'N','C','N','A','N'},
-      {'N','C','N','M','P'},
+      {'N','A','N','N','M'},
+      {'N','C','N','A','M'},
+      {'A','P','M','C','C'},
+      {'N','A','M','C','C'},
+      {'N','M','C','A','P'},
     };
     public static Map CustomMap = new Map(CustomCharMap);
     public static Map MapInUse;
-
+    public static List<State> result = new ArrayList<>();
     public static void main(String args[]){      
       // TODO: Declare map
-        MapInUse = new Map(CustomCharMap);
+        MapInUse = new Map(OriginalCharMap);
+        try{
+            AvgCost = MapInUse.averageCost(MapInUse.getCostMap());
+        }catch (Exception e){
+            System.out.println("Error 1 : Reading map all COST are 0");
+        }
       // TODO: Declare initial and target states
 
       // Declare heuristics
@@ -36,11 +46,58 @@ public class Main {
       heuristics[1] = Heuristics::Heuristic2;
       heuristics[2] = Heuristics::Heuristic3;
 
+        List<State> Final1 = new ArrayList<>();
+        List<State> Final2 = new ArrayList<>();
+        List<State> Final3 = new ArrayList<>();
+        List<State> Final4 = new ArrayList<>();
+        List<State> Final5= new ArrayList<>();
+        List<State> Final6 = new ArrayList<>();
       // TODO: Declare search algorithms (if desired, you can move this under "Run experiments")
-
+        /*Best_first*/
       // TODO: Run experiments
+        Search search1 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[0]);
+        Final1 = search1.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
 
-      // TODO: Show results
+        Search search2 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[1]);
+        Final2 = search2.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
+
+        Search search3 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[2]);
+        Final3 = search3.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
+
+        Search search4 = new A_Star(MapInUse.getCostMap(), heuristics[0]);
+        Final4 = search4.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
+
+        Search search5 = new A_Star(MapInUse.getCostMap(), heuristics[1]);
+        Final5 = search5.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
+
+        Search search6 = new A_Star(MapInUse.getCostMap(), heuristics[2]);
+        Final6 = search6.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
+
+        // TODO: Show results
+        System.out.println("Euclidean:");
+        printStateList(Final1);
+        System.out.println("\nManhattan:");
+        printStateList(Final2);
+        System.out.println("\nHybrid between Distance Euclidean & Economy:");
+        printStateList(Final3);
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println("Euclidean:");
+        printStateList(Final4);
+        System.out.println("\nManhattan:");
+        printStateList(Final5);
+        System.out.println("\nHybrid between Distance Euclidean & Economy:");
+        printStateList(Final6);
+    }
+    public static void printStateList(List<State> list){
+        for (State state : list) {
+            System.out.print(" -> (" + state.getX() + " " + state.getY()+"/ "+state.getPrice() + ") " + state.getHeuristic());
+        }
+        System.out.println("\n Steps \t: "+list.size());
+        float valor=0;
+        for (State state : list) {
+            valor += state.getPrice();
+        }
+        System.out.println(" Cost \t: "+valor);
     }
 
 }

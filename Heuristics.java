@@ -19,7 +19,6 @@ public class Heuristics {
         posX = (float)currentState.getX();
         posY = (float)currentState.getY();
 
-
         result = (float)Math.sqrt( (targetState.getX()-posX)*2 + (targetState.getY()-posY)*3 );
 
         return result;
@@ -39,9 +38,9 @@ public class Heuristics {
 
         float rang = 0.4f, rang2 = 0.5f;
         if(( (float)currentState.getY() < (float)targetState.getY()*rang && (float)currentState.getX() < (float)targetState.getX()*rang)){
-            return ((value1) + (value2) * 0.01f);
+            return ((value1) + (value2) * 0.5f);
         } else if ((float)currentState.getY() > (float)targetState.getY()*rang2 || (float)currentState.getX() > (float)targetState.getX()*rang2) {
-            return ((value1) + (value2)*0.2f);
+            return ((value1) + (value2)*0.5f);
         }else{
             return ((value1) + ((value2)*0f));
         }

@@ -1,4 +1,3 @@
-import Exceptions.PositionNotAllowedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,6 @@ public abstract class Search {
     private Heuristic heuristic;
     private int star;
     public List<State> ListDone = new ArrayList<>();
-    public List<State> ListPending = new ArrayList<>();
     public Search(float[][] costMap, Heuristic heuristic, int star){
         this.costMap = costMap;
         this.heuristic = heuristic;
@@ -17,7 +15,7 @@ public abstract class Search {
 
 
 
-    /* TODO: Obtain the states that can be accessed from the current state.
+    /* Obtain the states that can be accessed from the current state.
      * Consider their cost, heuristic...
      * Feel free to change the input parameters and/or return type.
      */
@@ -38,9 +36,6 @@ public abstract class Search {
 
     //Find all possible paths for a State saving all results in a List;
     protected List<State> EvaluateOperators(State currentState, State targetState, List<State> list){
-        if(currentState.equals(targetState)){
-            return null;
-        }
         int size_X = Main.MapInUse.getCharMap()[0].length;
         int size_Y = Main.MapInUse.getCharMap().length;
         List<State> State_list = new ArrayList<>();

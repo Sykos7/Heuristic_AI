@@ -1,4 +1,3 @@
-import Exceptions.PositionNotAllowedException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,6 +17,8 @@ import java.util.PriorityQueue;
 4. Repetimos el paso 3 hasta que hayamos encontrado el final
 
  */
+// TODO: Best First no descarta pendents.
+
 public class Best_Fisrt extends Search{
     private float[][] costMap;
     private Heuristic heuristic;

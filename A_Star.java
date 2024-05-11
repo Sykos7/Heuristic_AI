@@ -17,13 +17,22 @@
 *
 * */
 
+// TODO:    - A* no descarta tractats,
+//          - no sobreescriu, incorrecte o inexistent 
+//          - afegiment a visitats
+//          - utilitza la nomenclatura d'Pendientes/Tratados, que no és consistent amb el fet al Best First.
+
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
+
+
 
 public class A_Star extends Search{
-    List<State> visited = new ArrayList<>();
+   
+
+ 
     State q = new State(0, 0);
     private float[][] costMap;
     private Heuristic heuristic;
@@ -34,37 +43,74 @@ public class A_Star extends Search{
         this.heuristic = heuristic;
     }
     Comparator<State> compareHeuristic = Comparator.comparing(State::getHeuristic);
-    PriorityQueue<State> Open = new PriorityQueue<>(compareHeuristic);
-    List<State> Close = new ArrayList<>();
+    List<State> Pendientes = new ArrayList<>();
+    List<State> Tratados = new ArrayList<>();
+    List<State> Camino = new ArrayList<>();
     public List<State> do_AStar(State initialState, State targetState){
 
 
-        Open.add(initialState);
-
-        while(!Open.isEmpty()){
-            q = Open.poll();
-            Close.add(q);
-            List<State> TempList = EvaluateOperators(q, targetState, Close);
+        Pendientes.add(initialState);
+        List<State> visitedList = new ArrayList<>();
+        visitedList.add(initialState);
+        while(!Pendientes.isEmpty()){
+            int cont = 0;
+            for(State k : Pendientes){
+                if(cont == 0){
+                    q = k;
+                }else{
+                    if(k.getHeuristic() < q.getHeuristic()){
+                        q = k;
+                    }
+                }
+                cont++;
+            }
+            Pendientes.remove(q);
+            Tratados.add(q);
+            List<State> TempList = EvaluateOperators(q, targetState, Tratados);
             if(!find){
                 for (State aux : TempList) {
-                    float heur = heuristic.Evaluate(aux, targetState, costMap);
-                    aux.setHeuristic(heur);
-                    aux.addHeuristic(aux.Distance_X() + aux.Distance_Y());
-                    Open.add(aux);
-                    if (aux.compareTo(targetState) == 0) {
+                    if(visitedList.contains(aux)){
+                        visitedList.add(aux);
+                    }
+                    if(!Tratados.contains(aux)){
+                        float heur = heuristic.Evaluate(aux, targetState, costMap);
+                        aux.setHeuristic(q.getHeuristic());
+                        aux.addHeuristic(aux.Distance_X() + aux.Distance_Y() + heur);
+
+                        if(Pendientes.contains(aux)){
+                            cont = 0;
+                            for(State y : Pendientes){
+                                if(aux.equals(y) && aux.getHeuristic() < y.getHeuristic()){
+                                    Pendientes.remove(cont);
+                                    Pendientes.add(aux);
+                                    cont--;
+                                }
+                                cont++;
+                            }
+                        }else{
+                            Pendientes.add(aux);
+                        }
+                        aux.setPadre(q);
+                    }
+                    if (aux.equals(targetState)) {
+                        Tratados.add(aux);
                         find = true;
-                        Close.add(aux);
                         break;
                     }
-
                 }
-            }
-            if(find)
+            }else{
+                q = Tratados.get(Tratados.size()-2);
+                Camino.add(q);
+                while(q.getPadre() != null){
+                    q = q.getPadre();
+                    Camino.add(q);
+                }
+                Collections.reverse(Camino);
                 break;
-
+            }
+                
         }
-
-        return Close;
+        return Camino;
     }
 
 }

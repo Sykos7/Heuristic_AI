@@ -1,6 +1,3 @@
-import Exceptions.LimitMapException;
-import Exceptions.PositionNotAllowedException;
-
 public class State implements Comparable<State>{
 
     int[] position = new int[2];
@@ -8,8 +5,17 @@ public class State implements Comparable<State>{
     float price;
     int size_X;
     int size_Y;
-    float heuristic = 10;
+    float heuristic = 0;
+    State padre = null;
 
+
+    public State getPadre() {
+        return padre;
+    }
+
+    public void setPadre(State padre) {
+        this.padre = padre;
+    }
 
     public State(int Position_X, int Position_Y) {
 
@@ -21,8 +27,6 @@ public class State implements Comparable<State>{
 
             float[][] costMap = map.getCostMap();
             this.price = costMap[Position_X][Position_Y];
-
-
     }
 
     @Override
@@ -38,7 +42,7 @@ public class State implements Comparable<State>{
         return Integer.compare(this.hashCode(), other.hashCode());
     }
 
-    /* TODO if using data structures leveraging hash.
+    /*  if using data structures leveraging hash.
      *  IMPORTANT: It MUST be coherent with the "equals" method. That is, if two States are equal, they MUST have the same hashcode.
      *  However, due to collisions, two States with the same hashcode are not necessarily equal.
      */
@@ -58,10 +62,10 @@ public class State implements Comparable<State>{
     public int getY() {return position[1];}
     public float getPrice() {return price;}
     public int Distance_X() {
-        return (size_X - 1) - position[0];
+        return size_X - position[0];
     }
     public int Distance_Y() {
-        return (size_Y - 1) - position[1];
+        return size_Y - position[1];
     }
     public float getHeuristic() {
         return heuristic;

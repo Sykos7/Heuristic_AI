@@ -1,11 +1,8 @@
-import java.lang.annotation.Target;
-
 
 public class Heuristics {
 
     /*Don't look the neighbors heuristic
     * Also we could implement additional class to create A* and/or Best First
-    * TODO: Implement a heuristic
     * You CANNOT change the input parameters and return type.
     * The value returned can ONLY be based on the current state and the target state, NOT intermediate states.
     */
@@ -38,9 +35,9 @@ public class Heuristics {
 
         float rang = 0.4f, rang2 = 0.5f;
         if(( (float)currentState.getY() < (float)targetState.getY()*rang && (float)currentState.getX() < (float)targetState.getX()*rang)){
-            return ((value1) + (value2) * 0.5f);
+            return ((value1) + (value2) * 0.01f);
         } else if ((float)currentState.getY() > (float)targetState.getY()*rang2 || (float)currentState.getX() > (float)targetState.getX()*rang2) {
-            return ((value1) + (value2)*0.5f);
+            return ((value1) + (value2)*0.2f);
         }else{
             return ((value1) + ((value2)*0f));
         }

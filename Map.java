@@ -1,4 +1,3 @@
-import Exceptions.PositionNotAllowedException;
 
 public class Map {
     private char[][] charMap;
@@ -28,15 +27,15 @@ public class Map {
                 switch(charMap[row][col]){
                     //Coste general -5 + (lo que genera el comerciante respecto a la casilla donde está)
                     //ponemos coste 0 en la montaña como centinela
-                    case 'M': cost= 0;// TODO: Define cost corresponding to "Mountain" ("Muntanya")
+                    case 'M': cost= 0;// Define cost corresponding to "Mountain" ("Muntanya")
                     break;
-                    case 'N': cost= 5;// TODO: Define cost corresponding to "Empty" ("Buit")
+                    case 'N': cost= 5;// Define cost corresponding to "Empty" ("Buit")
                     break;
-                    case 'A': cost= 5-1;// TODO: Define cost corresponding to "Village" ("Aldea")
+                    case 'A': cost= 5-1;// Define cost corresponding to "Village" ("Aldea")
                     break;
-                    case 'P': cost= 5-3;// TODO: Define cost corresponding to "Town" ("Poble")
+                    case 'P': cost= 5-3;// Define cost corresponding to "Town" ("Poble")
                     break;
-                    case 'C': cost= 5-4.5F;// TODO: Define cost corresponding to "City" ("Ciutat/capital")
+                    case 'C': cost= 5-4.5F;// Define cost corresponding to "City" ("Ciutat/capital")
                     break;
                 }
                 costMap[row][col] = cost;

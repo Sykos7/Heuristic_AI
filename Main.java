@@ -31,14 +31,14 @@ public class Main {
     public static Map MapInUse;
     public static List<State> result = new ArrayList<>();
     public static void main(String args[]){      
-      // TODO: Declare map
+
         MapInUse = new Map(OriginalCharMap);
         try{
             AvgCost = MapInUse.averageCost(MapInUse.getCostMap());
         }catch (Exception e){
             System.out.println("Error 1 : Reading map all COST are 0");
         }
-      // TODO: Declare initial and target states
+
 
       // Declare heuristics
       Heuristic[] heuristics = new Heuristic[3];
@@ -52,47 +52,45 @@ public class Main {
         List<State> Final4 = new ArrayList<>();
         List<State> Final5= new ArrayList<>();
         List<State> Final6 = new ArrayList<>();
-      // TODO: Declare search algorithms (if desired, you can move this under "Run experiments")
-        /*Best_first*/
-      // TODO: Run experiments
-        Search search1 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[0]);
-        Final1 = search1.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
 
-        Search search2 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[1]);
-        Final2 = search2.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
 
-        Search search3 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[2]);
-        Final3 = search3.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
-
-        Search search4 = new A_Star(MapInUse.getCostMap(), heuristics[0]);
-        Final4 = search4.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
-
-        Search search5 = new A_Star(MapInUse.getCostMap(), heuristics[1]);
-        Final5 = search5.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
-
-        Search search6 = new A_Star(MapInUse.getCostMap(), heuristics[2]);
-        Final6 = search6.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
-
-        // TODO: Show results
+        //TODO: La quantitat de nodes tractats és mesura de manera incorrecte.
         System.out.println("BEST FIRST");
         System.out.println("Euclidean:");
+        
+        Search search1 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[0]);
+        Final1 = search1.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
         printStateList(Final1);
+        
         System.out.println("\nManhattan:");
+        Search search2 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[1]);
+        Final2 = search2.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
         printStateList(Final2);
+
         System.out.println("\nHybrid between Distance Euclidean & Economy:");
+        Search search3 = new Best_Fisrt(MapInUse.getCostMap(), heuristics[2]);
+        Final3 = search3.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
         printStateList(Final3);
         System.out.println("---------------------------------------------------------------------------");
         System.out.println("A STAR");
         System.out.println("Euclidean:");
+        Search search4 = new A_Star(MapInUse.getCostMap(), heuristics[0]);
+        Final4 = search4.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
         printStateList(Final4);
+        
         System.out.println("\nManhattan:");
+        Search search5 = new A_Star(MapInUse.getCostMap(), heuristics[1]);
+        Final5 = search5.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
         printStateList(Final5);
+        
         System.out.println("\nHybrid between Distance Euclidean & Economy:");
+        Search search6 = new A_Star(MapInUse.getCostMap(), heuristics[2]);
+        Final6 = search6.DoSearch(MapInUse.getInitialState(), MapInUse.getFinalState());
         printStateList(Final6);
     }
     public static void printStateList(List<State> list){
         for (State state : list) {
-            System.out.print(" -> (" + state.getX() + " " + state.getY()+"/ "+state.getPrice() + ") " + state.getHeuristic());
+            System.out.print(" -> (" + state.getX() + "-" + state.getY()+"/ "+state.getPrice() + ") " + state.getHeuristic()+"\n");
         }
         System.out.println("\n Steps \t: "+list.size());
         float valor=0;

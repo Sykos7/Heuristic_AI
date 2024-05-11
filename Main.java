@@ -52,9 +52,6 @@ public class Main {
         List<State> Final4 = new ArrayList<>();
         List<State> Final5= new ArrayList<>();
         List<State> Final6 = new ArrayList<>();
-
-
-        //TODO: La quantitat de nodes tractats és mesura de manera incorrecte.
         System.out.println("BEST FIRST");
         System.out.println("Euclidean:");
         
@@ -89,9 +86,6 @@ public class Main {
         printStateList(Final6);
     }
     public static void printStateList(List<State> list){
-        for (State state : list) {
-            System.out.print(" -> (" + state.getX() + "-" + state.getY()+"/ "+state.getPrice() + ") " + state.getHeuristic()+"\n");
-        }
         System.out.println("\n Steps \t: "+list.size());
         float valor=0;
         for (State state : list) {

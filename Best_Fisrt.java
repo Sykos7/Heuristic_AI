@@ -17,7 +17,6 @@ import java.util.PriorityQueue;
 4. Repetimos el paso 3 hasta que hayamos encontrado el final
 
  */
-// TODO: Best First no descarta pendents.
 
 public class Best_Fisrt extends Search{
     private float[][] costMap;
@@ -39,8 +38,16 @@ public class Best_Fisrt extends Search{
         while(!pq.isEmpty()){
             aux = pq.poll();
             result.add(aux);
-            visited.add(aux);
+            if(!visited.contains(aux)){
+                visited.add(aux);
+            }
             if(aux.compareTo(targetState) == 0){
+                int index = 1;
+                System.out.println("VISITED PATH");
+            for (State state : visited) {
+                System.out.println(index +" -> (" + state.getX() + "-" + state.getY()+"/ "+state.getPrice() + ") " + state.getHeuristic());
+                index++;
+            }
                 return result;
             }
             List<State> TempList = EvaluateOperators(aux, targetState, visited);

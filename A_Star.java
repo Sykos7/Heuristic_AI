@@ -17,10 +17,6 @@
 *
 * */
 
-// TODO:    - A* no descarta tractats,
-//          - no sobreescriu, incorrecte o inexistent 
-//          - afegiment a visitats
-//          - utilitza la nomenclatura d'Pendientes/Tratados, que no és consistent amb el fet al Best First.
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -48,7 +44,6 @@ public class A_Star extends Search{
     List<State> Camino = new ArrayList<>();
     public List<State> do_AStar(State initialState, State targetState){
 
-
         Pendientes.add(initialState);
         List<State> visitedList = new ArrayList<>();
         visitedList.add(initialState);
@@ -69,7 +64,7 @@ public class A_Star extends Search{
             List<State> TempList = EvaluateOperators(q, targetState, Tratados);
             if(!find){
                 for (State aux : TempList) {
-                    if(visitedList.contains(aux)){
+                    if(!visitedList.contains(aux)){
                         visitedList.add(aux);
                     }
                     if(!Tratados.contains(aux)){
@@ -108,9 +103,13 @@ public class A_Star extends Search{
                 Collections.reverse(Camino);
                 break;
             }
-                
         }
-        return Camino;
+        int index = 1;
+        System.out.println("VISITED PATH");
+        for (State state : visitedList) {
+            System.out.println(index +" -> (" + state.getX() + "-" + state.getY()+"/ "+state.getPrice() + ") " + state.getHeuristic());
+            index++;
+        }
+        return Camino;        
     }
-
 }
